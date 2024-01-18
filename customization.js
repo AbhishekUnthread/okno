@@ -275,4 +275,104 @@ updateAppState = (e, a, t, r, o) => {
         })
     })), updatePageTotal(), updatePageTotal2()
 },
-updateGrandTotalNHidden...
+updateGrandTotalNHiddenInputs = () => {
+    const e = updatePageTotal() + updatePageTotal2();
+    GrandTotalEle.innerText = e?.toFixed(2), grandTotalInputEle.value = e?.toFixed(2), urlInputEle.value = window.location.href;
+    const {
+        cm: a,
+        fm: t,
+        wm: r
+    } = FinalValuesForInteriors, {
+        acpm: o,
+        wdm: l
+    } = FinalValuesForExterior;
+    interiorInputEle.value = `${a.value}-${r.value}-${t.value}`, exteriorInput.value = `${o.value}-${l.value}`
+},
+displayPopupForm = () => {
+    updateGrandTotalNHiddenInputs(), popupFormEle.style.display = "block"
+};
+TabsWrapperEle.addEventListener("click", (e => {
+const a = e.target.innerText;
+document.querySelectorAll(`${selectors.PopupTabsWrapper} > a`).forEach((e => {
+    e.dataset.wTab?.toUpperCase() === a && (e.classList.toggle(selectors.activeTabBtn), e.setAttribute("aria-selected", !0))
+}))
+})), PopupTabsEle.addEventListener("click", (e => {
+const a = e.target.innerText;
+document.querySelectorAll(`${selectors.TabsWrapper} > a`).forEach((e => {
+    e.dataset.wTab?.toUpperCase() === a && e.classList.toggle(selectors.activeTabBtn), e.setAttribute("aria-selected", !0)
+}))
+})), bookNowBtn1Ele.addEventListener("click", displayPopupForm), bookNowBtn2Ele.addEventListener("click", displayPopupForm), resetBtnEle.addEventListener("click", (e => {
+resetImageStylesOnTab1(), resetQueryParams(1), [...radioButtonsForCM, ...radioButtonsForWM, ...radioButtonsForFM].forEach((e => {
+    e.checked = !1, e.previousSibling.classList.remove(selectors.activeRadioBtn)
+})), FinalValuesForInteriors = {
+    cm: {
+        value: "",
+        price: ""
+    },
+    wm: {
+        value: "",
+        price: ""
+    },
+    fm: {
+        value: "",
+        price: ""
+    }
+}, updatePageTotal()
+})), resetBtn2Ele.addEventListener("click", (e => {
+resetImageStylesOnTab2(), resetQueryParams(2), [...radioButtonsForACP, ...radioButtonsForWood].forEach((e => {
+    e.checked = !1, e.previousSibling.classList.remove(selectors.activeRadioBtn)
+})), FinalValuesForExterior = {
+    acpm: {
+        value: "",
+        price: ""
+    },
+    wdm: {
+        value: "",
+        price: ""
+    }
+}, updatePageTotal2()
+})), window.addEventListener("load", (e => {
+const a = new URL(window.location.href),
+    t = a.searchParams.get("cm"),
+    r = a.searchParams.get("wm"),
+    o = a.searchParams.get("fm"),
+    l = a.searchParams.get("acpm"),
+    s = a.searchParams.get("wdm");
+var i, c, n, u, p;
+c = r, n = o, u = l, p = s, (i = t) && radioButtonsForCM.forEach((e => {
+    const a = e.dataset.value,
+        t = e.dataset.price;
+    a === i && (e.checked = !0, e.previousSibling.classList.add(selectors.activeRadioBtn), updateImageByType("cm", i), FinalValuesForInteriors.cm = {
+        value: a,
+        price: t
+    })
+})), c && radioButtonsForWM.forEach((e => {
+    const a = e.dataset.value,
+        t = e.dataset.price;
+    a === c && (e.checked = !0, e.previousSibling.classList.add(selectors.activeRadioBtn), updateImageByType("wm", c), FinalValuesForInteriors.wm = {
+        value: a,
+        price: t
+    })
+})), n && radioButtonsForFM.forEach((e => {
+    const a = e.dataset.value,
+        t = e.dataset.price;
+    a === n && (e.checked = !0, e.previousSibling.classList.add(selectors.activeRadioBtn), updateImageByType("fm", n), FinalValuesForInteriors.fm = {
+        value: a,
+        price: t
+    })
+})), u && radioButtonsForACP.forEach((e => {
+    const a = e.dataset.value,
+        t = e.dataset.price;
+    a === u && (e.checked = !0, e.previousSibling.classList.add(selectors.activeRadioBtn), updateImageByType("acpm", u), FinalValuesForExterior.acpm = {
+        value: a,
+        price: t
+    })
+})), p && radioButtonsForWood.forEach((e => {
+    const a = e.dataset.value,
+        t = e.dataset.price;
+    a === p && (e.checked = !0, e.previousSibling.classList.add(selectors.activeRadioBtn), updateImageByType("wdm", p), FinalValuesForExterior.wdm = {
+        value: a,
+        price: t
+    })
+})), updatePageTotal(), updatePageTotal2(), t || r || o || l || s || (resetImageStylesOnTab1(), resetImageStylesOnTab2())
+}));
